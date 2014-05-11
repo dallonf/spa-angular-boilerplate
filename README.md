@@ -30,5 +30,5 @@ To run a server for local development, run `node dev`. If you need to test on a 
 - Spritesheet generation
 - Support for Jade templates
 - `grunt watch` support for LESS, jshint, Livereload, and other handy things
-- Support for bower components
+- Support for Bower components
 - Boilerplate for Karma tests
