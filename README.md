@@ -7,14 +7,15 @@
 - Immediately start hacking with AngularJS and a NodeJS backend
 - Grunt build process will concatenate and minify all of your code, including HTML templates and stylesheets
 - Just add JavaScript files to your project. They'll be automatically detected and loaded in the right order. Why should you have to add a `<script>` tag? 
+- Includes HTML5 Boilerplate
 
 ## How to use
 
 Download the source of this project, and run `npm install` to install dependencies.
 
-To run a server for local development, run `node dev`. If you need to test on a browser that's not compatible with client-side LESS compilation, use the `--less` parameter (`node dev --less`).
+To run a server for local development, run `node dev`. If you need to test on a browser that's not compatible with client-side LESS compilation (that would be <IE9, for example), use the `--less` parameter (`node dev --less`).
 
-## Why not Yeoman/MEAN.io?
+## Why not Yeoman?
 
 [Yeoman Angular Generator](https://github.com/yeoman/generator-angular) is a similar project which is definitely more mature at this time. Here are some reasons why SPA-Angular fits my personal workflow better:
 
@@ -32,3 +33,4 @@ To run a server for local development, run `node dev`. If you need to test on a 
 - `grunt watch` support for LESS, jshint, Livereload, and other handy things
 - Support for Bower components
 - Boilerplate for Karma tests
+- TypeScript support?

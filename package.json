@@ -1,10 +1,10 @@
 {
-  "name": "SPA Angular Boilerplate",
+  "name": "spa-angular-boilerplate",
   "version": "0.0.0",
   "main": "dev.js",
   "author": "Dallon Feldner",
   "dependencies": {
+    "express": "^4.2.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
