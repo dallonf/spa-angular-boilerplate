@@ -24,13 +24,25 @@ To run a server for local development, run `node dev`. If you need to test on a 
 - SPA-Angular does more concatenation and minification (the Yeoman Angular project doesn't currently optimize your HTML templates, although it's on their roadmap)
 - I *really* don't like adding `<script src>` tags to my HTML. Technically, Yeoman takes care of that with generators, but it's opinionated about how you organize your project files.
 
+## Internet Explorer Support
+
+I opted to not support IE8 and below with this boilerplate in order to keep things clean. However, it's not too difficult to add IE8 support if you need it:
+
+- Add [conditional classes](http://www.paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/) to the `<html>` tag 
+- Switch jQuery to the 1.x branch (2.x actively drops IE8 support)
+- Switch AngularJS to the 1.2.x branch (1.3.x [passively drops IE8 support](http://blog.angularjs.org/2013/12/angularjs-13-new-release-approaches.html))
+- Avoid using directives as tags (e.g. `<div ng-view>` instead of `<ng-view>`)
+
 ## Wishlist
+
+These are not necessarily in priority order.
 
 - Refactor JavaScript scanning into an NPM module
 - Use `ngmin` to remove the need for manual DI annotations
 - Spritesheet generation
-- Support for Jade templates
+- Support for Jade templates?
 - `grunt watch` support for LESS, jshint, Livereload, and other handy things
 - Support for Bower components
 - Boilerplate for Karma tests
 - TypeScript support?
+- Use [ui-router](https://github.com/angular-ui/ui-router) instead of ngRoute
