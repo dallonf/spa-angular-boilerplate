@@ -4,6 +4,7 @@
   "main": "dev.js",
   "author": "Dallon Feldner",
   "dependencies": {
+    "ejs": "^1.0.0",
     "express": "^4.2.0",
     "q": "^1.0.1"
   },
