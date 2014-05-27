@@ -8,5 +8,8 @@
     "express": "^4.2.0",
     "q": "^1.0.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1"
+  }
 }
