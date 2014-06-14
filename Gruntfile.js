@@ -110,6 +110,27 @@ module.exports = function(grunt) {
       css: {
         src: 'build/css/stylesheet.css'
       }
+    },
+
+    ngtemplates: {
+      'my-app': {
+        cwd: 'public',
+        src: 'templates/**.html',
+        dest: 'build/js/_templates.js',
+        options: {
+          htmlmin: {
+            collapseBooleanAttributes:      false,
+            collapseWhitespace:             true,
+            removeAttributeQuotes:          true,
+            removeComments:                 true,
+            removeEmptyAttributes:          false,
+            removeRedundantAttributes:      true,
+            removeScriptTypeAttributes:     true,
+            removeStyleLinkTypeAttributes:  true
+          },
+          usemin: 'build/js/app.js'
+        }
+      }
     }
   });
 
@@ -119,12 +140,12 @@ module.exports = function(grunt) {
     'copy:css',
     'less:build',
     'copy:img',
-    'copy:templates',
     'copy:js',
     'copy:misc',
 
     'buildEjs',
     'useminPrepare',
+    'ngtemplates',
     'concat',
     'clean:buildJs',
     'clean:buildCss',
@@ -145,6 +166,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-usemin');
+  grunt.loadNpmTasks('grunt-angular-templates');
 
   grunt.registerTask('buildEjs', "Builds index.ejs into build/index.html", function() {
     var scanJs = require('./lib/scanner/scanjs');
