@@ -16,6 +16,12 @@ Download the source of this project, and run `npm install` to install dependenci
 
 To run a server for local development, run `node dev`. In another tab, run `grunt watch` to compile LESS and start a LiveReload server.
 
+### How to make a production build
+
+To make an optimized production build, run `grunt build`. This will output static files to the `build/` directory. You can test this build by running `node app`.
+
+If you haven't created any Node APIs, you can distribute the `build/` directory as your final app.
+
 ## Why not Yeoman?
 
 [Yeoman Angular Generator](https://github.com/yeoman/generator-angular) is a similar project which is definitely more mature at this time. Here are some reasons why SPA-Angular fits my personal workflow better:
