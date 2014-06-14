@@ -36,7 +36,8 @@ module.exports = function(grunt) {
 
     clean: {
       build: 'build',
-      tmp: ['tmp', '.tmp']
+      tmp: ['tmp', '.tmp'],
+      buildJs: ['build/js', 'build/vendor', '!build/vendor/modernizr-2.6.2.min.js']
     },
 
     copy: {
@@ -56,32 +57,12 @@ module.exports = function(grunt) {
           dest: 'build/img/'
         }]
       },
-      jsTmp: {
+      js: {
         files: [{
           expand: true,
-          cwd: 'public/js',
-          src: '**',
-          dest: 'tmp/js/'
-        }]
-      },
-      appJs: {
-        files: [{
-          src: 'tmp/js/app.js',
-          dest: 'build/js/app.js'
-        }]
-      },
-      modernizr: {
-        files: [{
-          src: 'tmp/vendor/modernizr-2.6.2.min.js',
-          dest: 'build/vendor/modernizr-2.6.2.min.js'
-        }]
-      },
-      vendorTmp: {
-        files: [{
-          expand: true,
-          cwd: 'public/vendor',
-          src: '**',
-          dest: 'tmp/vendor/'
+          cwd: 'public',
+          src: ['js/**', 'vendor/**'],
+          dest: 'build/'
         }]
       },
       templates: {
@@ -92,44 +73,51 @@ module.exports = function(grunt) {
           dest: 'build/templates/'
         }]
       },
-      html: {
+      misc: {
         files: [{
-          src: 'tmp/index.html',
-          dest: 'build/index.html'
+          expand: true,
+          cwd: 'public',
+          src: '*',
+          dest: 'build'
         }]
       }
     },
 
     useminPrepare: {
-      html: 'tmp/index.html',
+      html: 'build/index.html',
       options: {
-        dest: 'tmp'
+        dest: 'build'
       }
     },
     usemin: {
-      html: 'tmp/index.html'
+      html: 'build/index.html'
+    },
+
+    filerev: {
+      appJs: {
+        src: 'build/js/app.js'
+      }
     }
   });
 
   grunt.registerTask('build', [
     'clean:build',
 
-    'copy:jsTmp',
-    'copy:vendorTmp',
-    'buildEjs',
-    'useminPrepare',
-    'concat',
-    'uglify',
-    'usemin',
-
     'less:development',
     'copy:css',
     'copy:img',
-    'copy:appJs',
-    'copy:modernizr',
     'copy:templates',
-    'copy:html',
-    
+    'copy:js',
+    'copy:misc',
+
+    'buildEjs',
+    'useminPrepare',
+    'concat',
+    'clean:buildJs',
+    'uglify',
+    'filerev',
+    'usemin',
+
     'clean:tmp'
   ]);
 
@@ -139,9 +127,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-usemin');
 
-  grunt.registerTask('buildEjs', "Builds index.ejs into tmp/index.html", function() {
+  grunt.registerTask('buildEjs', "Builds index.ejs into build/index.html", function() {
     var scanJs = require('./lib/scanner/scanjs');
     var ejs = require('ejs');
     var jsDirs = require('./js-dirs');
@@ -150,7 +139,7 @@ module.exports = function(grunt) {
 
     grunt.log.writeln('Scanned JavaScript');
     scanJs(jsDirs, 'public').then(function(jsFiles) {
-      ejs.render(cat('index.ejs'), {scripts: jsFiles}).to('tmp/index.html');
+      ejs.render(cat('index.ejs'), {scripts: jsFiles}).to('build/index.html');
       grunt.log.writeln('Rendered index.html');
     }).then(function() {
       done();
