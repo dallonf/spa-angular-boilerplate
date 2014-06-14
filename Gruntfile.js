@@ -31,13 +31,22 @@ module.exports = function(grunt) {
         files: {
           'public/css/stylesheet.css': 'public/less/**/*.less'
         }
+      },
+      build: {
+        options: {
+          cleancss: true
+        },
+        files: {
+          'build/css/stylesheet.css': 'public/less/**/*.less'
+        }
       }
     },
 
     clean: {
       build: 'build',
       tmp: ['tmp', '.tmp'],
-      buildJs: ['build/js', 'build/vendor', '!build/vendor/modernizr-2.6.2.min.js']
+      buildJs: ['build/js', 'build/vendor/**/*.js', 'build/vendor/polyfills', '!build/vendor/modernizr-2.6.2.min.js'],
+      buildCss: ['build/css']
     },
 
     copy: {
@@ -45,7 +54,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'public/css',
-          src: '**',
+          src: ['**', '!stylesheet.css'],
           dest: 'build/css/'
         }]
       },
@@ -78,7 +87,8 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'public',
           src: '*',
-          dest: 'build'
+          dest: 'build',
+          filter: 'isFile'
         }]
       }
     },
@@ -96,6 +106,9 @@ module.exports = function(grunt) {
     filerev: {
       appJs: {
         src: 'build/js/app.js'
+      },
+      css: {
+        src: 'build/css/stylesheet.css'
       }
     }
   });
@@ -103,8 +116,8 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'clean:build',
 
-    'less:development',
     'copy:css',
+    'less:build',
     'copy:img',
     'copy:templates',
     'copy:js',
@@ -114,7 +127,9 @@ module.exports = function(grunt) {
     'useminPrepare',
     'concat',
     'clean:buildJs',
+    'clean:buildCss',
     'uglify',
+    'cssmin',
     'filerev',
     'usemin',
 
@@ -127,6 +142,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-usemin');
 
