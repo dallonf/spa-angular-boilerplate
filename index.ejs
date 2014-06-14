@@ -21,8 +21,10 @@
       <ng-view></ng-view>
     </div>
 
+    <!-- build:js js/app.js -->
     <% scripts.forEach(function(script) { %>
       <script type="text/javascript" src="<%= script %>"></script>
     <% }); %>
+    <!-- endbuild -->
   </body>
 </html>
