@@ -5,6 +5,7 @@
 ## High-level features
 
 - Immediately start hacking with AngularJS and a NodeJS backend
+- Full LiveReload support
 - Grunt build process will concatenate and minify all of your code, including HTML templates and stylesheets
 - Just add JavaScript files to your project. They'll be automatically detected and loaded in the right order. Why should you have to add a `<script>` tag? 
 - Includes HTML5 Boilerplate
@@ -13,7 +14,7 @@
 
 Download the source of this project, and run `npm install` to install dependencies.
 
-To run a server for local development, run `node dev`. If you need to test on a browser that's not compatible with client-side LESS compilation (that would be <IE9, for example), use the `--less` parameter (`node dev --less`).
+To run a server for local development, run `node dev`. In another tab, run `grunt watch` to compile LESS and start a LiveReload server.
 
 ## Why not Yeoman?
 
@@ -41,7 +42,6 @@ These are not necessarily in priority order.
 - Use `ngmin` to remove the need for manual DI annotations
 - Spritesheet generation
 - Support for Jade templates?
-- `grunt watch` support for LESS, jshint, Livereload, and other handy things
 - Support for Bower components
 - Boilerplate for Karma tests
 - TypeScript support?

@@ -2,7 +2,6 @@ var express = require('express'),
     path = require('path'),
     ejs = require('ejs'),
     fs = require('fs'),
-    path = require('path'),
     Q = require('q'),
 
     jsDirs = require('./js-dirs'),
