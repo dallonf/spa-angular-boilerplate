@@ -18,16 +18,23 @@ module.exports = function(grunt) {
       },
       less: {
         files: 'public/less/**/*.less',
-        tasks: ['less'],
-        options: { livereload: false, atBegin: true }
+        tasks: ['less:dev'],
+        options: { livereload: false }
       },
       css: {
         files: 'public/css/**/*.css'
+      },
+      server: {
+        files: ['dev.js', 'lib/**/*.js'],
+        tasks: ['express:dev'],
+        options: {
+          spawn: false
+        }
       }
     },
 
     less: {
-      development: {
+      dev: {
         files: {
           'public/css/stylesheet.css': 'public/less/**/*.less'
         }
@@ -131,8 +138,27 @@ module.exports = function(grunt) {
           usemin: 'build/js/app.js'
         }
       }
+    },
+
+    express: {
+      dev: {
+        options: {
+          script: 'dev.js'
+        }
+      }
+    },
+
+    open: {
+      dev: { path: 'http://127.0.0.1:3000' }
     }
   });
+
+  grunt.registerTask('default', [
+    'express:dev',
+    'less:dev',
+    'open:dev',
+    'watch'
+  ]);
 
   grunt.registerTask('build', [
     'clean:build',
@@ -167,6 +193,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-open');
 
   grunt.registerTask('buildEjs', "Builds index.ejs into build/index.html", function() {
     var scanJs = require('./lib/scanner/scanjs');

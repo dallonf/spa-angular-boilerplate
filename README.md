@@ -14,7 +14,7 @@
 
 Download the source of this project, and run `npm install` to install dependencies.
 
-To run a server for local development, run `node dev`. In another tab, run `grunt watch` to compile LESS and start a LiveReload server.
+To start testing and developing, run `grunt`. (That is, the default task) A server will start at `localhost:3000` and your default browser will automatically open to that page. The grunt task will also automatically compile LESS and act as a LiveReload server. Just make changes to the code and they'll show up.
 
 ### How to make a production build
 
