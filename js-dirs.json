@@ -1,6 +1,6 @@
 [{
   "dir": "vendor",
-  "first": ["jquery-2.1.1.js", "angular.js"],
+  "first": [],
   "exclude": ["modernizr-2.6.2.min.js"],
   "last": []
 }, {

@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     'watch'
   ]);
 
-  grunt.registerTask('bowerDeps', [
+  grunt.registerTask('bower', [
     'copy:tmpHtmlForBower',
     'wiredep',
     'copy:tmpHtmlForBowerBack',
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         files: 'public/css/**/*.css'
       },
       server: {
-        files: ['dev.js', 'lib/**/*.js'],
+        files: ['dev.js', 'lib/**/*.js', 'js-dirs.json'],
         tasks: ['express:dev'],
         options: {
           spawn: false

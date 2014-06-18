@@ -12,9 +12,15 @@
 
 ## How to use
 
-Download the source of this project, and run `npm install` to install dependencies.
+Download the source of this project, and run the following to install dependencies:
+  
+    npm install
+    bower install
+    grunt bower
 
 To start testing and developing, run `grunt`. (That is, the default task) A server will start at `localhost:3000` and your default browser will automatically open to that page. The grunt task will also automatically compile LESS and act as a LiveReload server. Just make changes to the code and they'll show up.
+
+Whenever you add a new bower dependency to your app, you will need to run `grunt bower` again.
 
 ### How to make a production build
 
