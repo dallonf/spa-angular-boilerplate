@@ -1,6 +1,44 @@
 require('shelljs/global');
 
 module.exports = function(grunt) {
+
+  grunt.registerTask('default', [
+    'express:dev',
+    'less:dev',
+    'open:dev',
+    'watch'
+  ]);
+
+  grunt.registerTask('bowerDeps', [
+    'copy:tmpHtmlForBower',
+    'wiredep',
+    'copy:tmpHtmlForBowerBack',
+    'clean:tmpHtmlForBower'
+  ]);
+
+  grunt.registerTask('build', [
+    'clean:build',
+
+    'copy:css',
+    'less:build',
+    'copy:img',
+    'copy:js',
+    'copy:misc',
+
+    'buildEjs',
+    'useminPrepare',
+    'ngtemplates',
+    'concat',
+    'clean:buildJs',
+    'clean:buildCss',
+    'uglify',
+    'cssmin',
+    'filerev',
+    'usemin',
+
+    'clean:tmp'
+  ]);
+
   grunt.initConfig({
     watch: {
       options: {
@@ -53,7 +91,8 @@ module.exports = function(grunt) {
       build: 'build',
       tmp: ['tmp', '.tmp'],
       buildJs: ['build/js', 'build/vendor/**/*.js', 'build/vendor/polyfills', '!build/vendor/modernizr-2.6.2.min.js'],
-      buildCss: ['build/css']
+      buildCss: ['build/css'],
+      tmpHtmlForBower: 'public/index.ejs.html'
     },
 
     copy: {
@@ -97,6 +136,14 @@ module.exports = function(grunt) {
           dest: 'build',
           filter: 'isFile'
         }]
+      },
+      tmpHtmlForBower: {
+        src: 'index.ejs',
+        dest: 'public/index.ejs.html'
+      },
+      tmpHtmlForBowerBack: {
+        src: 'public/index.ejs.html',
+        dest: 'index.ejs'
       }
     },
 
@@ -154,53 +201,10 @@ module.exports = function(grunt) {
 
     wiredep: {
       target: {
-        src: 'index.ejs',
-        fileTypes: {
-          ejs: {
-            block: /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi,
-            detect: {
-              js: /<script.*src=['"](.+)['"]>/gi,
-              css: /<link.*href=['"](.+)['"]/gi
-            },
-            replace: {
-              js: '<script src="{{filePath}}"></script>',
-              css: '<link rel="stylesheet" href="{{filePath}}" />'
-            }
-          }
-        }
+        src: 'public/index.ejs.html'
       }
     }
   });
-
-  grunt.registerTask('default', [
-    'express:dev',
-    'less:dev',
-    'open:dev',
-    'watch'
-  ]);
-
-  grunt.registerTask('build', [
-    'clean:build',
-
-    'copy:css',
-    'less:build',
-    'copy:img',
-    'copy:js',
-    'copy:misc',
-
-    'buildEjs',
-    'useminPrepare',
-    'ngtemplates',
-    'concat',
-    'clean:buildJs',
-    'clean:buildCss',
-    'uglify',
-    'cssmin',
-    'filerev',
-    'usemin',
-
-    'clean:tmp'
-  ]);
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
