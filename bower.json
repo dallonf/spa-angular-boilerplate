@@ -1,0 +1,7 @@
+{
+  "name": "my-app",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.1.1"
+  }
+}

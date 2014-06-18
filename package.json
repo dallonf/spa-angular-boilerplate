@@ -22,6 +22,7 @@
     "grunt-filerev": "^0.2.1",
     "grunt-open": "^0.2.3",
     "grunt-usemin": "^2.2.0",
+    "grunt-wiredep": "^1.8.0",
     "shelljs": "^0.3.0"
   }
 }

@@ -150,6 +150,25 @@ module.exports = function(grunt) {
 
     open: {
       dev: { path: 'http://127.0.0.1:3000' }
+    },
+
+    wiredep: {
+      target: {
+        src: 'index.ejs',
+        fileTypes: {
+          ejs: {
+            block: /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi,
+            detect: {
+              js: /<script.*src=['"](.+)['"]>/gi,
+              css: /<link.*href=['"](.+)['"]/gi
+            },
+            replace: {
+              js: '<script src="{{filePath}}"></script>',
+              css: '<link rel="stylesheet" href="{{filePath}}" />'
+            }
+          }
+        }
+      }
     }
   });
 
@@ -195,6 +214,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-open');
+  grunt.loadNpmTasks('grunt-wiredep');
 
   grunt.registerTask('buildEjs', "Builds index.ejs into build/index.html", function() {
     var scanJs = require('./lib/scanner/scanjs');
