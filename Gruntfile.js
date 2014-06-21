@@ -10,11 +10,19 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('bower', [
+    'exec:bowerInstall',
     'copy:tmpHtmlForBower',
     'wiredep',
     'copy:tmpHtmlForBowerBack',
     'clean:tmpHtmlForBower'
   ]);
+
+  grunt.registerTask('bowerAdd', function(packageName) {
+    if (!packageName) {
+      grunt.warn("You must specify a package name!");
+    }
+    grunt.task.run('exec:bowerInstallPackage:' + packageName, 'bower');
+  });
 
   grunt.registerTask('build', [
     'clean:build',
@@ -203,6 +211,15 @@ module.exports = function(grunt) {
       target: {
         src: 'public/index.ejs.html'
       }
+    },
+
+    exec: {
+      bowerInstall: 'bower install',
+      bowerInstallPackage: {
+        cmd: function(packageName) {
+          return 'bower install ' + packageName + ' --save';
+        }
+      }
     }
   });
 
@@ -219,6 +236,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-wiredep');
+  grunt.loadNpmTasks('grunt-exec');
 
   grunt.registerTask('buildEjs', "Builds index.ejs into build/index.html", function() {
     var scanJs = require('./lib/scanner/scanjs');
