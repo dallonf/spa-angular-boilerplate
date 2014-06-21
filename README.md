@@ -9,6 +9,7 @@
 - Grunt build process will concatenate and minify all of your code, including HTML templates and stylesheets
 - Just add JavaScript files to your project. They'll be automatically detected and loaded in the right order. Why should you have to add a `<script>` tag? 
 - Includes HTML5 Boilerplate
+- Supports `ngmin`, so you don't have to add DI metadata manually
 
 ## How to use
 
@@ -52,10 +53,8 @@ I opted to not support IE8 and below with this boilerplate in order to keep thin
 These are not necessarily in priority order.
 
 - Refactor JavaScript scanning into an NPM module
-- Use `ngmin` to remove the need for manual DI annotations
 - Spritesheet generation
 - Support for Jade templates?
-- Support for Bower components
 - Boilerplate for Karma tests
 - TypeScript support?
 - Use [ui-router](https://github.com/angular-ui/ui-router) instead of ngRoute

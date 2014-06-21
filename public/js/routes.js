@@ -1,5 +1,4 @@
-app.config([
-  '$routeProvider',
+angular.module('my-app').config(
   function($routeProvider) {
     $routeProvider.when('/test', {
       templateUrl: 'templates/test.html',
@@ -10,4 +9,4 @@ app.config([
       redirectTo: '/test'
     });
   }
-]);
+);

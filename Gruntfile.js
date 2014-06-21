@@ -34,6 +34,7 @@ module.exports = function(grunt) {
     'copy:js',
     'copy:misc',
 
+    'ngmin',
     'buildEjs',
     'useminPrepare',
     'ngtemplates',
@@ -231,6 +232,15 @@ module.exports = function(grunt) {
           return 'bower install ' + packageName + ' --save';
         }
       }
+    },
+
+    ngmin: {
+      build: {
+        expand: true,
+        cwd: 'build/js',
+        src: '**/*.js',
+        dest: 'build/js'
+      }
     }
   });
 
@@ -248,6 +258,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-wiredep');
   grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-ngmin');
 
   grunt.registerTask('buildEjs', "Builds index.ejs into build/index.html", function() {
     var scanJs = require('./lib/scanner/scanjs');

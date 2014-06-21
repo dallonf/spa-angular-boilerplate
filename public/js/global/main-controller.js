@@ -1,4 +1,4 @@
-app.controller('MainController', ['$scope',
+angular.module('my-app').controller('MainController',
   function($scope){
     var self = this;
 
@@ -6,4 +6,4 @@ app.controller('MainController', ['$scope',
       return "Single Page App Boilerplate";
     };
   }
-])
+);
