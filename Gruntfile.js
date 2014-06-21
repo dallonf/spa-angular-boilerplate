@@ -27,6 +27,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'clean:build',
 
+    'copy:bowerComponents',
     'copy:css',
     'less:build',
     'copy:img',
@@ -39,6 +40,7 @@ module.exports = function(grunt) {
     'concat',
     'clean:buildJs',
     'clean:buildCss',
+    'clean:bowerComponents',
     'uglify',
     'cssmin',
     'filerev',
@@ -100,7 +102,8 @@ module.exports = function(grunt) {
       tmp: ['tmp', '.tmp'],
       buildJs: ['build/js', 'build/vendor/**/*.js', 'build/vendor/polyfills', '!build/vendor/modernizr-2.6.2.min.js'],
       buildCss: ['build/css'],
-      tmpHtmlForBower: 'public/index.ejs.html'
+      tmpHtmlForBower: 'public/index.ejs.html',
+      bowerComponents: 'build/bower_components'
     },
 
     copy: {
@@ -134,6 +137,14 @@ module.exports = function(grunt) {
           cwd: 'public/templates',
           src: '**',
           dest: 'build/templates/'
+        }]
+      },
+      bowerComponents: {
+        files: [{
+          expand: true,
+          cwd: 'public/bower_components',
+          src: '**',
+          dest: 'build/bower_components/'
         }]
       },
       misc: {
