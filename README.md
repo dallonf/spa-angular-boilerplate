@@ -1,7 +1,5 @@
 # Single-Page-App Angular Boilerplate
 
-**This project is under development! It is not ready for use**
-
 ## High-level features
 
 - Immediately start hacking with AngularJS and a NodeJS backend
