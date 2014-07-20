@@ -5,14 +5,14 @@
 - Immediately start hacking with AngularJS and a NodeJS backend
 - Full LiveReload support
 - Grunt build process will concatenate and minify all of your code, including HTML templates and stylesheets
-- Just add JavaScript files to your project. They'll be automatically detected and loaded in the right order. Why should you have to add a `<script>` tag? 
+- Just add JavaScript files to your project. They'll be automatically detected and loaded in the right order. Why should you have to add a `<script>` tag?
 - Includes HTML5 Boilerplate
 - Supports `ngmin`, so you don't have to add DI metadata manually
 
 ## How to use
 
 Download the source of this project, and run the following to install dependencies:
-  
+
     npm install
     grunt bower
 
@@ -41,7 +41,7 @@ If you haven't created any Node APIs, you can distribute the `build/` directory 
 
 I opted to not support IE8 and below with this boilerplate in order to keep things clean. However, it's not too difficult to add IE8 support if you need it:
 
-- Add [conditional classes](http://www.paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/) to the `<html>` tag 
+- Add [conditional classes](http://www.paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/) to the `<html>` tag
 - Switch jQuery to the 1.x branch (2.x actively drops IE8 support)
 - Switch AngularJS to the 1.2.x branch (1.3.x [passively drops IE8 support](http://blog.angularjs.org/2013/12/angularjs-13-new-release-approaches.html))
 - Avoid using directives as tags (e.g. `<div ng-view>` instead of `<ng-view>`)
@@ -54,5 +54,5 @@ These are not necessarily in priority order.
 - Spritesheet generation
 - Support for Jade templates?
 - Boilerplate for Karma tests
-- TypeScript support?
 - Use [ui-router](https://github.com/angular-ui/ui-router) instead of ngRoute
+- Use [ng-annotate](https://github.com/olov/ng-annotate) instead of ng-min
