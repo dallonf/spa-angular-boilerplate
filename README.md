@@ -54,5 +54,6 @@ These are not necessarily in priority order.
 - Spritesheet generation
 - Support for Jade templates?
 - Boilerplate for Karma tests
-- Use [ui-router](https://github.com/angular-ui/ui-router) instead of ngRoute
-- Use [ng-annotate](https://github.com/olov/ng-annotate) instead of ng-min
+- Use [ui-router](https://github.com/angular-ui/ui-router) instead of ngRoute for nested states
+- Use [ng-annotate](https://github.com/olov/ng-annotate) instead of ng-min because ng-min is now deprecated
+- Use [gulp](https://github.com/gulpjs/gulp) instead of Grunt for more concise build scripts.
