@@ -58,3 +58,4 @@ These are not necessarily in priority order.
 - Use [ng-annotate](https://github.com/olov/ng-annotate) instead of ng-min because ng-min is now deprecated
 - Use [gulp](https://github.com/gulpjs/gulp) instead of Grunt for more concise build scripts.
 - Implement [Autoprefixer](https://github.com/ai/autoprefixer) as part of stylesheet compilation
+- Implement sourcemap support for stylesheets
