@@ -57,3 +57,4 @@ These are not necessarily in priority order.
 - Use [ui-router](https://github.com/angular-ui/ui-router) instead of ngRoute for nested states
 - Use [ng-annotate](https://github.com/olov/ng-annotate) instead of ng-min because ng-min is now deprecated
 - Use [gulp](https://github.com/gulpjs/gulp) instead of Grunt for more concise build scripts.
+- Implement [Autoprefixer](https://github.com/ai/autoprefixer) as part of stylesheet compilation
