@@ -1,12 +1,11 @@
 app.config(
-  function($routeProvider) {
-    $routeProvider.when('/test', {
+  function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/test');
+
+    $stateProvider.state('test', {
+      url: '/test',
       templateUrl: 'templates/test.html',
-      controller: 'TestController',
-      controllerAs: 'testCtrl'
-    })
-    .otherwise({
-      redirectTo: '/test'
+      controller: 'TestController as testCtrl'
     });
   }
 );

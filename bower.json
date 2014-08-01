@@ -4,8 +4,8 @@
   "dependencies": {
     "jquery": "*",
     "angular": "*",
-    "angular-route": "*",
-    "angular-animate": "*"
+    "angular-animate": "*",
+    "angular-ui-router": "*"
   },
   "overrides": {
     "angular": {
