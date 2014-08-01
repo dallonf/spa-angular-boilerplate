@@ -35,7 +35,7 @@ module.exports = function(grunt) {
     'copy:js',
     'copy:misc',
 
-    'ngmin',
+    'ngAnnotate',
     'buildEjs',
     'useminPrepare',
     'ngtemplates',
@@ -235,7 +235,7 @@ module.exports = function(grunt) {
       }
     },
 
-    ngmin: {
+    ngAnnotate: {
       build: {
         expand: true,
         cwd: 'build/js',

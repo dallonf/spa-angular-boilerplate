@@ -1,4 +1,4 @@
-angular.module('my-app').config(
+app.config(
   function($routeProvider) {
     $routeProvider.when('/test', {
       templateUrl: 'templates/test.html',

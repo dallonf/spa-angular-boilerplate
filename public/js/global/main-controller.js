@@ -1,4 +1,4 @@
-angular.module('my-app').controller('MainController',
+app.controller('MainController',
   function($scope){
     var self = this;
 

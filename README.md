@@ -7,7 +7,7 @@
 - Grunt build process will concatenate and minify all of your code, including HTML templates and stylesheets
 - Just add JavaScript files to your project. They'll be automatically detected and loaded in the right order. Why should you have to add a `<script>` tag?
 - Includes HTML5 Boilerplate
-- Supports `ngmin`, so you don't have to add DI metadata manually
+- Supports [ng-annotate](https://github.com/olov/ng-annotate), so you don't have to add DI metadata manually
 
 ## How to use
 
@@ -55,7 +55,6 @@ These are not necessarily in priority order.
 - Support for Jade templates?
 - Boilerplate for Karma tests
 - Use [ui-router](https://github.com/angular-ui/ui-router) instead of ngRoute for nested states
-- Use [ng-annotate](https://github.com/olov/ng-annotate) instead of ng-min because ng-min is now deprecated
 - Use `grunt-bacon` for more concise build scripts. "What's `grunt-bacon`", you ask? Stay tuned... :D
 - Implement [Autoprefixer](https://github.com/ai/autoprefixer) as part of stylesheet compilation
 - Implement sourcemap support for stylesheets
