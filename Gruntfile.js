@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'express:dev',
     'less:dev',
+    'autoprefixer:dev',
     'open:dev',
     'watch'
   ]);
@@ -31,6 +32,7 @@ module.exports = function(grunt) {
     'copy:bowerComponents',
     'copy:css',
     'less:build',
+    'autoprefixer:build',
     'copy:img',
     'copy:js',
     'copy:misc',
@@ -241,6 +243,19 @@ module.exports = function(grunt) {
         cwd: 'build/js',
         src: '**/*.js',
         dest: 'build/js'
+      }
+    },
+
+    autoprefixer: {
+      dev: {
+        files: {
+          'public/css/stylesheet.css': 'public/css/stylesheet.css'
+        }
+      },
+      build: {
+        files: {
+          'build/css/stylesheet.css': 'build/css/stylesheet.css'
+        }
       }
     }
   });
