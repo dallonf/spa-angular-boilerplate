@@ -192,7 +192,7 @@ module.exports = function(grunt) {
     ngtemplates: {
       'my-app': {
         cwd: 'public',
-        src: 'templates/**.html',
+        src: 'templates/**/*.html',
         dest: 'build/js/_templates.js',
         options: {
           htmlmin: {
