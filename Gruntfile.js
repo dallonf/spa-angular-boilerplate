@@ -70,7 +70,7 @@ module.exports = function(grunt) {
       },
       less: {
         files: 'public/less/**/*.less',
-        tasks: ['less:dev'],
+        tasks: ['less:dev', 'autoprefixer:dev'],
         options: { livereload: false }
       },
       css: {
