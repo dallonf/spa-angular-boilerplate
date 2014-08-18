@@ -56,3 +56,4 @@ These are not necessarily in priority order.
 - Boilerplate for Karma tests
 - Use [grunt-bacon](https://github.com/DallonF/grunt-bacon) for more concise build scripts.
 - Implement sourcemap support for stylesheets
+- Convert into Yeoman generator (competing directly with the official Angular generator?)
