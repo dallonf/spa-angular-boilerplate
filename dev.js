@@ -12,13 +12,14 @@ var express = require('express'),
     app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('./api/api'));
 
 app.get('/', function(req, res, next) {
   var indexQ = Q.ninvoke(fs, 'readFile', path.join(__dirname, 'index.ejs'), 'utf-8');
   var jsFilesQ = scanJs(jsDirs, path.join(__dirname, 'public'));
   Q.spread([indexQ, jsFilesQ], function(index, jsFiles) {
     try {
-      res.send(ejs.render(index, {scripts: jsFiles}));  
+      res.send(ejs.render(index, {scripts: jsFiles}));
     } catch (ex) {
       next(ex);
     }
@@ -28,5 +29,5 @@ app.get('/', function(req, res, next) {
 });
 
 app.listen(port, function() {
-  console.log("Dev server listening on localhost:" + port);  
+  console.log("Dev server listening on localhost:" + port);
 });

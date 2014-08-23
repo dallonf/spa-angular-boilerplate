@@ -4,7 +4,8 @@ var express = require('express'),
     app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(require('./api/api'));
 
 app.listen(port, function() {
-  console.log("Production server listening on localhost:" + port);  
+  console.log("Production server listening on localhost:" + port);
 });
