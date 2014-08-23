@@ -54,6 +54,5 @@ These are not necessarily in priority order.
 - Spritesheet generation
 - Support for Jade templates?
 - Boilerplate for Karma tests
-- Use [grunt-bacon](https://github.com/DallonF/grunt-bacon) for more concise build scripts.
 - Implement sourcemap support for stylesheets
 - Convert into Yeoman generator (competing directly with the official Angular generator?)

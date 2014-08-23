@@ -1,57 +1,8 @@
 require('shelljs/global');
 
 module.exports = function(grunt) {
+  var bacon = require('bacon-grunt')(grunt);
   require('load-grunt-tasks')(grunt);
-
-  grunt.registerTask('default', [
-    'express:dev',
-    'less:dev',
-    'autoprefixer:dev',
-    'open:dev',
-    'watch'
-  ]);
-
-  grunt.registerTask('bower', [
-    'exec:bowerInstall',
-    'copy:tmpHtmlForBower',
-    'wiredep',
-    'copy:tmpHtmlForBowerBack',
-    'clean:tmpHtmlForBower'
-  ]);
-
-  grunt.registerTask('bowerAdd', function(packageName) {
-    if (!packageName) {
-      grunt.warn("You must specify a package name!");
-    }
-    grunt.task.run('exec:bowerInstallPackage:' + packageName, 'bower');
-  });
-
-  grunt.registerTask('build', [
-    'clean:build',
-
-    'copy:bowerComponents',
-    'copy:css',
-    'less:build',
-    'autoprefixer:build',
-    'copy:img',
-    'copy:js',
-    'copy:misc',
-
-    'ngAnnotate',
-    'buildEjs',
-    'useminPrepare',
-    'ngtemplates',
-    'concat',
-    'clean:buildJs',
-    'clean:buildCss',
-    'clean:bowerComponents',
-    'uglify',
-    'cssmin',
-    'filerev',
-    'usemin',
-
-    'clean:tmp'
-  ]);
 
   grunt.initConfig({
     watch: {
@@ -85,91 +36,6 @@ module.exports = function(grunt) {
       }
     },
 
-    less: {
-      dev: {
-        files: {
-          'public/css/stylesheet.css': 'public/less/**/*.less'
-        }
-      },
-      build: {
-        options: {
-          cleancss: true
-        },
-        files: {
-          'build/css/stylesheet.css': 'public/less/**/*.less'
-        }
-      }
-    },
-
-    clean: {
-      build: 'build',
-      tmp: ['tmp', '.tmp'],
-      buildJs: ['build/js', 'build/vendor/**/*.js', 'build/vendor/polyfills', '!build/vendor/modernizr-2.6.2.min.js'],
-      buildCss: ['build/css'],
-      tmpHtmlForBower: 'public/index.ejs.html',
-      bowerComponents: 'build/bower_components'
-    },
-
-    copy: {
-      css: {
-        files: [{
-          expand: true,
-          cwd: 'public/css',
-          src: ['**', '!stylesheet.css'],
-          dest: 'build/css/'
-        }]
-      },
-      img: {
-        files: [{
-          expand: true,
-          cwd: 'public/img',
-          src: '**',
-          dest: 'build/img/'
-        }]
-      },
-      js: {
-        files: [{
-          expand: true,
-          cwd: 'public',
-          src: ['js/**', 'vendor/**'],
-          dest: 'build/'
-        }]
-      },
-      templates: {
-        files: [{
-          expand: true,
-          cwd: 'public/templates',
-          src: '**',
-          dest: 'build/templates/'
-        }]
-      },
-      bowerComponents: {
-        files: [{
-          expand: true,
-          cwd: 'public/bower_components',
-          src: '**',
-          dest: 'build/bower_components/'
-        }]
-      },
-      misc: {
-        files: [{
-          expand: true,
-          cwd: 'public',
-          src: '*',
-          dest: 'build',
-          filter: 'isFile'
-        }]
-      },
-      tmpHtmlForBower: {
-        src: 'index.ejs',
-        dest: 'public/index.ejs.html'
-      },
-      tmpHtmlForBowerBack: {
-        src: 'public/index.ejs.html',
-        dest: 'index.ejs'
-      }
-    },
-
     useminPrepare: {
       html: 'build/index.html',
       options: {
@@ -189,27 +55,6 @@ module.exports = function(grunt) {
       }
     },
 
-    ngtemplates: {
-      'my-app': {
-        cwd: 'public',
-        src: 'templates/**/*.html',
-        dest: 'build/js/_templates.js',
-        options: {
-          htmlmin: {
-            collapseBooleanAttributes:      false,
-            collapseWhitespace:             true,
-            removeAttributeQuotes:          true,
-            removeComments:                 true,
-            removeEmptyAttributes:          false,
-            removeRedundantAttributes:      true,
-            removeScriptTypeAttributes:     true,
-            removeStyleLinkTypeAttributes:  true
-          },
-          usemin: 'build/js/app.js'
-        }
-      }
-    },
-
     express: {
       dev: {
         options: {
@@ -218,63 +63,136 @@ module.exports = function(grunt) {
       }
     },
 
-    open: {
-      dev: { path: 'http://127.0.0.1:3000' }
-    },
-
-    wiredep: {
-      target: {
-        src: 'public/index.ejs.html'
-      }
-    },
-
     exec: {
-      bowerInstall: 'bower install',
       bowerInstallPackage: {
         cmd: function(packageName) {
           return 'bower install ' + packageName + ' --save';
         }
       }
-    },
-
-    ngAnnotate: {
-      build: {
-        expand: true,
-        cwd: 'build/js',
-        src: '**/*.js',
-        dest: 'build/js'
-      }
-    },
-
-    autoprefixer: {
-      dev: {
-        files: {
-          'public/css/stylesheet.css': 'public/css/stylesheet.css'
-        }
-      },
-      build: {
-        files: {
-          'build/css/stylesheet.css': 'build/css/stylesheet.css'
-        }
-      }
     }
   });
 
-  grunt.registerTask('buildEjs', "Builds index.ejs into build/index.html", function() {
-    var scanJs = require('./lib/scanner/scanjs');
-    var ejs = require('ejs');
-    var jsDirs = require('./js-dirs');
+  bacon.task('default', [
+    'express:dev',
+    bacon.subtask('open', { path: 'http://127.0.0.1:3000' }),
+    'watch'
+  ]);
 
-    var done = this.async();
+  bacon.task('dev', [
+    'devStylesheets'
+  ]);
 
-    grunt.log.writeln('Scanned JavaScript');
-    scanJs(jsDirs, 'public').then(function(jsFiles) {
-      ejs.render(cat('index.ejs'), {scripts: jsFiles}).to('build/index.html');
-      grunt.log.writeln('Rendered index.html');
-    }).then(function() {
-      done();
-    }, function(err) {
-      done(err);
+  bacon.task('devStylesheets', [
+    bacon.subtask('less', {
+      files: { 'public/css/stylesheet.css': 'public/less/stylesheet.less' }
+    }),
+    bacon.subtask('autoprefixer', {
+      files: { 'public/css/stylesheet.css': 'public/css/stylesheet.css' }
     })
+  ]);
+
+  bacon.task('bower', [
+    bacon.subtask('exec', 'bower install'),
+    bacon.subtask('copy:tmpHtml', {
+      files: { 'public/index.ejs.html': 'index.ejs' }
+    }),
+    bacon.subtask('wiredep', {
+      src: 'public/index.ejs.html'
+    }),
+    bacon.subtask('copy:tmpHtmlBack', {
+      files: { 'index.ejs': 'public/index.ejs.html' }
+    }),
+    bacon.subtask('clean:tmpHtml', 'public/index.ejs.html')
+  ]);
+
+  grunt.registerTask('bowerAdd', function(packageName) {
+    if (!packageName) {
+      grunt.warn("You must specify a package name!");
+    }
+    grunt.task.run('exec:bowerInstallPackage:' + packageName, 'bower');
   });
+
+  bacon.task('build', [
+    bacon.subtask('clean', 'build'),
+
+    bacon.subtask('copy:bowerComponents',
+      bacon.globFiles('public/bower_components/**', 'build/bower_components')
+    ),
+    bacon.subtask('copy:css', {
+      expand: true,
+      cwd: 'public/css',
+      src: ['**', '!stylesheet.css'],
+      dest: 'build/css/'
+    }),
+    bacon.subtask('less', {
+      files: { 'build/css/stylesheet.css': 'public/less/stylesheet.less' }
+    }, {
+      cleancss: true
+    }),
+    bacon.subtask('autoprefixer', {
+      files: { 'build/css/stylesheet.css': 'build/css/stylesheet.css' }
+    }),
+    bacon.subtask('copy:img',
+      bacon.globFiles('public/img/**', 'build/img')
+    ),
+    bacon.subtask('copy:js', {
+      expand: true,
+      cwd: 'public',
+      src: ['js/**', 'vendor/**'],
+      dest: 'build/'
+    }),
+    bacon.subtask('copy:misc',
+      bacon.globFiles('public/*', 'build', { filter: 'isFile' })
+    ),
+
+    bacon.subtask('ngAnnotate',
+      bacon.globFiles('build/js/**/*.js', 'build/js')
+    ),
+    bacon.subtaskCustom('indexEjs', function() {
+      var scanJs = require('./lib/scanner/scanjs');
+      var ejs = require('ejs');
+      var jsDirs = require('./js-dirs');
+
+      var done = this.async();
+
+      grunt.log.writeln('Scanned JavaScript');
+      scanJs(jsDirs, 'public').then(function(jsFiles) {
+        ejs.render(cat('index.ejs'), {scripts: jsFiles}).to('build/index.html');
+        grunt.log.writeln('Rendered index.html');
+      }).then(function() {
+        done();
+      }, function(err) {
+        done(err);
+      });
+    }),
+    'useminPrepare',
+    bacon.subtask('ngtemplates', {
+      cwd: 'public',
+      src: 'templates/**/*.html',
+      dest: 'build/js/_templates.js'
+    }, {
+      module: 'my-app',
+      htmlmin: {
+        collapseBooleanAttributes:      false,
+        collapseWhitespace:             true,
+        removeAttributeQuotes:          true,
+        removeComments:                 true,
+        removeEmptyAttributes:          false,
+        removeRedundantAttributes:      true,
+        removeScriptTypeAttributes:     true,
+        removeStyleLinkTypeAttributes:  true
+      },
+      usemin: 'build/js/app.js'
+    }),
+    'concat', // usemin
+    bacon.subtask('clean:js', ['build/js', 'build/vendor/**/*.js', '!build/vendor/modernizr-2.6.2.min.js']),
+    bacon.subtask('clean:css', 'build/css'),
+    bacon.subtask('clean:bowerComponents', 'build/bower_components'),
+    'uglify', // usemin
+    'cssmin', // usemin
+    'filerev',
+    'usemin',
+
+    bacon.subtask('clean:tmp', ['tmp', '.tmp'])
+  ]);
 };
