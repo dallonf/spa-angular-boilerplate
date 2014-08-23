@@ -6,33 +6,31 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     watch: {
-      options: {
-        livereload: true
-      },
       Gruntfile: {
         files: 'Gruntfile.js',
-        options: { livereload: false }
+        tasks: ['dev']
       },
       js: {
-        files: 'public/js/**/*.js'
+        files: 'public/js/**/*.js',
+        options: { livereload: true }
       },
       html: {
-        files: ['index.ejs', 'public/templates/**/*.html']
+        files: ['index.ejs', 'public/templates/**/*.html'],
+        options: { livereload: true }
       },
       less: {
         files: 'public/less/**/*.less',
-        tasks: ['less:dev', 'autoprefixer:dev'],
-        options: { livereload: false }
+        tasks: ['devStylesheets'],
+        options: { atBegin: true, interrupt: true }
       },
       css: {
-        files: 'public/css/**/*.css'
+        files: 'public/css/**/*.css',
+        options: { livereload: true }
       },
       server: {
-        files: ['dev.js', 'lib/**/*.js', 'js-dirs.json'],
+        files: ['dev.js', 'lib/**/*.js', 'api/**/*.js', 'js-dirs.json'],
         tasks: ['express:dev'],
-        options: {
-          spawn: false
-        }
+        options: { livereload: true, spawn: false }
       }
     },
 
